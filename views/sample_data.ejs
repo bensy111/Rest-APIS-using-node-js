@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewpoint" content="width=device-width,initial-scale=1">
+        <link href="https://cdn.jsdeliver.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QgpJLIm9NaoOYz1tcQTwFspd3yD65VohhpuuCOmLASjc" crossorigin="anonymous">
+        <title>work</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center mt-3 mb-3"><%=<title %></title></h1>
+            <% if(action == 'add'){ %>
+            <div class="card">
+                <div class="card-header">input form</div>
+                    <div class="row">
+                        <div class="col">sample data</div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="/sample_data/add_data">
+                        <div class="row">
+                         <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>first Name</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control">
+                            </div>
+                         </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>last Name</label>
+                                <input type="text" name="last_name" id="last_name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>class</label>
+                                <input type="text" name="class" id="class" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>gender</label>
+                                <input type="text" name="gender" id="gender" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>physical address</label>
+                                <input type="text" name="physical_address" id="physical_address" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>status</label>
+                                <input type="text" name="status" id="status" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" name="submit_button" class="btn-btn-primary" value="Add">
+                    </div>
+                    </form>
+                </div>
+        </div>
+        <% } else if (action == 'edit'){ %>
+            <div class="card">
+                <div class="card-header">sample form</div>
+                <div class="card-body">
+                    <form method="POST " action="/sample_data/edit/<%= sampleData.id%>">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class ="mb-3">
+                                    <label> first Name</label>
+                                    <input type="text" name="first_name" id="first_name" class="form-control" value="<%= sampleData.first_name %>">
+                                    </label>
+                                </div>
+                                <div class ="mb-3">
+                                    <label> last Name</label>
+                                    <input type="text" name="last_name" id="last_name" class="form-control" value="<%= sampleData.last_name %>">
+                                    </label>
+                                </div>
+                                <div class ="mb-3">
+                                    <label> class</label>
+                                    <input type="text" name="class" id="class" class="form-control" value="<%= sampleData.class %>">
+                                    </label>
+                                </div>
+                                <div class ="mb-3">
+                                    <label> gender</label>
+                                    <input type="text" name="gender" id="gender" class="form-control" value="<%= sampleData.gender %>">
+                                    </label>
+                                </div>
+                                <div class ="mb-3">
+                                    <label> physical address</label>
+                                    <input type="text" name="physical_address" id="physical_address" class="form-control" value="<%= sampleData.physical_address %>">
+                                    </label>
+                                </div>
+                                <div class ="mb-3">
+                                    <label> status</label>
+                                    <input type="text" name="status" id="status" class="form-control" value="<%= sampleData.status %>">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" name="submit_button" class="btn-btn-primary" value="Edit">
+                        </div>
+                    </form>
+                    <script>
+                        document.getElementById('gender').value = "<%= sampleData.gender %>";
+                    </script>
+                </div>
+
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">sample data</div>
+                        <div class="col">
+                            <a href="/sample_data/add_data" class="btn-btn-sucess-sm float-end">Add</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>first name</th>
+                                <th>last name</th>
+                                <th>class</th>
+                                <th>gender</th>
+                                <th>physical_address</th>
+                                <th>status</th>
+                                <th>action</th>
+                            </tr>
+                            <% if(sampleData.length > 0)
+                            {
+                                sampleData.forEach(function(data){
+                            %>
+                            <tr>
+                                <td><% data.first_name %></td>
+                                <td><% data.last_name %></td>
+                                <td><% data.class %></td>
+                                <td><% data.gender %></td>
+                                <td><% data.physical_address %></td>
+                                <td><% data.status</td>
+                                <td>
+                                    <a href="/sample_data/edit/ <%= data.id %>" class="btn-btn-primary btn-sm">Edit</a>
+                                </td>
+                            </tr>
+                            <%
+                                });
+                            }
+                            else 
+                            {
+                            %>
+                            <tr>
+                                <td colspan="7">no data found</td>
+                            </tr>
+                            <%
+                            }
+                            %>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha334-MrcW6ZMFYlzcLA8Nl+NtUVFOsA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+
+</html>
